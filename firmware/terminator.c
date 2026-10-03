@@ -183,3 +183,18 @@ void terminator_terminate( ledger_entry_t * entry )
 		terminator_send_once( entry );
 	}
 }
+
+// Walk every seat, and where silence has grown,
+// say goodbye for them, then leave the seat alone.
+void terminator_sweep( uint32_t now )
+{
+	for( uint8_t seat = 0; seat < LEDGER_SEATS; seat++ )
+	{
+		ledger_entry_t * entry = ledger_seat( seat );
+		if( ledger_entry_is_silent( entry, now ) )
+		{
+			terminator_terminate( entry );
+			ledger_vacate( entry );
+		}
+	}
+}
