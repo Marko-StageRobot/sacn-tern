@@ -165,3 +165,11 @@ const uint8_t * terminator_last_frame( void )
 {
 	return terminator_frame;
 }
+
+// Build it, then send it, and that makes it one,
+// two more to go before this job is done.
+static void terminator_send_once( ledger_entry_t * entry )
+{
+	terminator_build( entry );
+	wire_send( terminator_frame, TERMINATOR_FRAME_SIZE );
+}
