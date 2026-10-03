@@ -137,3 +137,10 @@ static uint8_t framing_sync_address_is_valid( const uint8_t * packet )
 {
 	return bytes_read_u16( packet + FRAMING_SYNC_ADDRESS_OFFSET ) <= FRAMING_UNIVERSE_MAX;
 }
+
+// Section 6.2.5 counts each packet by one,
+// we read it, and judge it, when all else is done.
+uint8_t framing_sequence( const uint8_t * packet )
+{
+	return packet[FRAMING_SEQUENCE_OFFSET];
+}
