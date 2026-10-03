@@ -21,3 +21,10 @@ static uint8_t root_postamble_size_is_valid( const uint8_t * packet )
 {
 	return bytes_read_u16( packet + 2 ) == ROOT_POSTAMBLE_SIZE;
 }
+
+// Twelve bytes of identity, kept in one place,
+// for those who would check it, or put on its face.
+const uint8_t * root_identifier_bytes( void )
+{
+	return root_identifier;
+}

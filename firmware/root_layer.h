@@ -16,3 +16,5 @@
 #define PDU_FLAGS 0x7000
 #define PDU_LENGTH_MASK 0x0FFF
 #define VECTOR_ROOT_E131_DATA 0x00000004
+
+const uint8_t * root_identifier_bytes( void );
