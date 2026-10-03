@@ -19,3 +19,17 @@ static uint8_t ledger_entry_matches( const ledger_entry_t * entry, const uint8_t
 {
 	return entry->occupied && entry->universe == universe && bytes_equal( entry->cid, cid, ROOT_CID_SIZE );
 }
+
+// Walk down the seats till the right one is found,
+// and nothing comes back if they're not around.
+static ledger_entry_t * ledger_find( const uint8_t * cid, uint16_t universe )
+{
+	for( uint8_t seat = 0; seat < LEDGER_SEATS; seat++ )
+	{
+		if( ledger_entry_matches( &ledger[seat], cid, universe ) )
+		{
+			return &ledger[seat];
+		}
+	}
+	return 0;
+}
