@@ -6,3 +6,5 @@
 #include <stdint.h>
 
 uint16_t bytes_read_u16( const uint8_t * bytes );
+
+uint32_t bytes_read_u32( const uint8_t * bytes );
