@@ -23,3 +23,10 @@ void wire_init( void )
 	WCHNET_GetMacAddr( MACAddr );
 	ETH_Init( MACAddr );
 }
+
+// Six bytes that are ours, and that nobody lent,
+// the one honest field in the frames that are sent.
+const uint8_t * wire_mac_address( void )
+{
+	return MACAddr;
+}
