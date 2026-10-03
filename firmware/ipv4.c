@@ -40,3 +40,11 @@ uint16_t ipv4_total_length( const uint8_t * packet )
 {
 	return bytes_read_u16( packet + 2 );
 }
+
+// At least a whole header, at most what arrived,
+// a length outside that has been badly contrived.
+static uint8_t ipv4_total_length_is_sane( const uint8_t * packet, uint16_t available )
+{
+	uint16_t total = ipv4_total_length( packet );
+	return total >= ipv4_header_length( packet ) && total <= available;
+}
