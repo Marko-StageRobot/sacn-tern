@@ -17,3 +17,10 @@ const uint8_t * ethernet_destination( const uint8_t * frame )
 {
 	return frame;
 }
+
+// The next six are where it has come from, it's claimed,
+// and whoever it is will be soon enough named.
+const uint8_t * ethernet_source( const uint8_t * frame )
+{
+	return frame + ETHERNET_ADDRESS_SIZE;
+}

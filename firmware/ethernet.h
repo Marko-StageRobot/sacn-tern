@@ -10,3 +10,5 @@
 #define ETHERNET_TYPE_IPV4 0x0800
 
 const uint8_t * ethernet_destination( const uint8_t * frame );
+
+const uint8_t * ethernet_source( const uint8_t * frame );
