@@ -46,3 +46,10 @@ static uint8_t framing_source_name_length( const uint8_t * packet )
 	}
 	return length;
 }
+
+// Section 6.2.2 says the name shall be null-terminated,
+// sixty-four with no null is a name we have hated.
+static uint8_t framing_source_name_is_terminated( const uint8_t * packet )
+{
+	return framing_source_name_length( packet ) < FRAMING_SOURCE_NAME_SIZE;
+}
