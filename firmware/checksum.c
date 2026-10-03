@@ -19,3 +19,14 @@ uint32_t checksum_add( uint32_t sum, const uint8_t * bytes, uint16_t count )
 	}
 	return sum;
 }
+
+// Whatever spills over the top is brought round,
+// and added back in, till no carry is found.
+uint16_t checksum_fold( uint32_t sum )
+{
+	while( ( sum >> 16 ) != 0 )
+	{
+		sum = ( sum & 0xFFFF ) + ( sum >> 16 );
+	}
+	return (uint16_t)sum;
+}
