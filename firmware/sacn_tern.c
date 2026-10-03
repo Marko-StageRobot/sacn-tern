@@ -35,3 +35,14 @@ static void tern_consider( const uint8_t * frame, uint16_t length )
 	}
 	ledger_hear( packet, address, timebase_now() );
 }
+
+// A whole frame gets looked at, a broken one not,
+// and either way round, we give back the slot.
+static void tern_take_frame( void )
+{
+	if( wire_frame_is_whole() )
+	{
+		tern_consider( wire_frame(), wire_frame_length() );
+	}
+	wire_release_frame();
+}
