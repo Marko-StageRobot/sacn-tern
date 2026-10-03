@@ -54,3 +54,11 @@ static uint16_t dmp_property_count( const uint8_t * packet )
 {
 	return bytes_read_u16( packet + DMP_COUNT_OFFSET );
 }
+
+// Table 4-1 gives the range that's allowed,
+// one to five-thirteen, and no more in the crowd.
+static uint8_t dmp_count_is_in_range( const uint8_t * packet )
+{
+	uint16_t count = dmp_property_count( packet );
+	return count >= DMP_COUNT_MIN && count <= DMP_COUNT_MAX;
+}
