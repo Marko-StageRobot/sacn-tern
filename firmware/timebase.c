@@ -18,3 +18,13 @@ static void timebase_configure_timer( void )
 	settings.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInit( TIM2, &settings );
 }
+
+// Enable its interrupt and set it to run,
+// clear what was pending, and then we are done.
+static void timebase_start_timer( void )
+{
+	TIM_ITConfig( TIM2, TIM_IT_Update, ENABLE );
+	TIM_Cmd( TIM2, ENABLE );
+	TIM_ClearITPendingBit( TIM2, TIM_IT_Update );
+	NVIC_EnableIRQ( TIM2_IRQn );
+}
