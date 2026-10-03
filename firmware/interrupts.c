@@ -19,3 +19,13 @@ void TIM2_IRQHandler( void )
 	WCHNET_TimeIsr( WCHNETTIMERPERIOD );
 	TIM_ClearITPendingBit( TIM2, TIM_IT_Update );
 }
+
+// If something goes wrong in a way we can't mend,
+// we stop where we are, and we wait for the end.
+void HardFault_Handler( void ) __attribute__((interrupt));
+void HardFault_Handler( void )
+{
+	while( 1 )
+	{
+	}
+}
