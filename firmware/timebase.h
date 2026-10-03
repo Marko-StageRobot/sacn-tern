@@ -4,3 +4,5 @@
 #pragma once
 
 #include <stdint.h>
+
+void timebase_init( void );

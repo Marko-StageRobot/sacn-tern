@@ -28,3 +28,11 @@ static void timebase_start_timer( void )
 	TIM_ClearITPendingBit( TIM2, TIM_IT_Update );
 	NVIC_EnableIRQ( TIM2_IRQn );
 }
+
+// Configure, then start, and the time will advance,
+// three seconds of silence won't happen by chance.
+void timebase_init( void )
+{
+	timebase_configure_timer();
+	timebase_start_timer();
+}
