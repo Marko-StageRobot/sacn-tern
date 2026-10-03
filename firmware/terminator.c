@@ -21,3 +21,10 @@
 
 static uint8_t terminator_frame[TERMINATOR_FRAME_SIZE];
 static uint16_t terminator_identification;
+
+// Past the fourteen of Ethernet, IP begins,
+// we build it by hand, and atone for our sins.
+static uint8_t * terminator_ipv4( void )
+{
+	return terminator_frame + TERMINATOR_IPV4_OFFSET;
+}
