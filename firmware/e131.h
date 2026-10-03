@@ -9,3 +9,5 @@
 #define E131_LONGEST_PACKET 638
 #define E131_GROUP_FIRST_BYTE 239
 #define E131_GROUP_SECOND_BYTE 255
+
+uint8_t e131_address_is_group( const uint8_t * address );
