@@ -64,3 +64,10 @@ const uint8_t * root_cid( const uint8_t * packet )
 {
 	return packet + ROOT_CID_OFFSET;
 }
+
+// Section 5.6 says unique across space and time,
+// all zeroes is neither, and that is a crime.
+static uint8_t root_cid_is_not_nil( const uint8_t * packet )
+{
+	return !bytes_all_zero( root_cid( packet ), ROOT_CID_SIZE );
+}
