@@ -61,3 +61,11 @@ static ledger_entry_t * ledger_seat_newcomer( const uint8_t * cid, uint16_t univ
 	}
 	return entry;
 }
+
+// Section 6.7.2: B minus A, signed and eight wide,
+// at most zero, above minus twenty, is cast aside.
+static uint8_t ledger_sequence_is_stale( const ledger_entry_t * entry, uint8_t sequence )
+{
+	int8_t difference = (int8_t)( sequence - entry->sequence );
+	return difference <= 0 && difference > -20;
+}
