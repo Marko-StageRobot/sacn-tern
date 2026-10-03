@@ -109,3 +109,14 @@ void ledger_vacate( ledger_entry_t * entry )
 {
 	entry->occupied = 0;
 }
+
+// Sections 6.2.6 and 12.2 agree it is ended,
+// a source that said so needs no help, as intended.
+void ledger_forget( const uint8_t * packet )
+{
+	ledger_entry_t * entry = ledger_find( root_cid( packet ), framing_universe( packet ) );
+	if( entry != 0 )
+	{
+		ledger_vacate( entry );
+	}
+}
