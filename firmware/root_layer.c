@@ -78,3 +78,11 @@ static uint8_t root_cid_variant_is_valid( const uint8_t * packet )
 {
 	return ( root_cid( packet )[8] & 0xC0 ) == 0x80;
 }
+
+// RFC 4122 has versions one up to five,
+// a CID outside those does not leave here alive.
+static uint8_t root_cid_version_is_valid( const uint8_t * packet )
+{
+	uint8_t version = root_cid( packet )[6] >> 4;
+	return version >= 1 && version <= 5;
+}
