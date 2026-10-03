@@ -48,3 +48,10 @@ static uint8_t ipv4_total_length_is_sane( const uint8_t * packet, uint16_t avail
 	uint16_t total = ipv4_total_length( packet );
 	return total >= ipv4_header_length( packet ) && total <= available;
 }
+
+// No more-fragments flag, and an offset of nil,
+// we do not reassemble, and we never will.
+static uint8_t ipv4_is_whole( const uint8_t * packet )
+{
+	return ( bytes_read_u16( packet + 6 ) & 0x3FFF ) == 0;
+}
