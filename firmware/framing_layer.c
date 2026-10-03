@@ -33,3 +33,16 @@ const uint8_t * framing_source_name( const uint8_t * packet )
 {
 	return packet + FRAMING_SOURCE_NAME_OFFSET;
 }
+
+// Count up the bytes till a null comes along,
+// if none ever does then it's sixty-four long.
+static uint8_t framing_source_name_length( const uint8_t * packet )
+{
+	const uint8_t * name = framing_source_name( packet );
+	uint8_t length = 0;
+	while( length < FRAMING_SOURCE_NAME_SIZE && name[length] != 0 )
+	{
+		length++;
+	}
+	return length;
+}
