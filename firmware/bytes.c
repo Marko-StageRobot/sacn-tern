@@ -25,8 +25,8 @@ void bytes_write_u16( uint8_t * bytes, uint16_t value )
 	bytes[1] = (uint8_t)value;
 }
 
-// Split it in two and write each of the halves,
-// the top one goes first, as it does on the graphs.
+// Split it in two and then write each half,
+// the top one goes first, as it does on a graph.
 void bytes_write_u32( uint8_t * bytes, uint32_t value )
 {
 	bytes_write_u16( bytes, (uint16_t)( value >> 16 ) );
