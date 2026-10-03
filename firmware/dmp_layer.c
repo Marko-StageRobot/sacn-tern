@@ -40,3 +40,10 @@ static uint8_t dmp_first_address_is_valid( const uint8_t * packet )
 {
 	return bytes_read_u16( packet + DMP_FIRST_ADDRESS_OFFSET ) == DMP_FIRST_ADDRESS;
 }
+
+// Section 7.5 says the increment's one,
+// receivers shall discard if it's other, and done.
+static uint8_t dmp_increment_is_valid( const uint8_t * packet )
+{
+	return bytes_read_u16( packet + DMP_INCREMENT_OFFSET ) == DMP_INCREMENT;
+}
