@@ -38,3 +38,10 @@ static uint8_t ethernet_address_is_group( const uint8_t * address )
 {
 	return address[0] & 0x01;
 }
+
+// A frame cannot come from a group, that's absurd,
+// one sender, one address, or it isn't heard.
+static uint8_t ethernet_source_is_individual( const uint8_t * frame )
+{
+	return !ethernet_address_is_group( ethernet_source( frame ) );
+}
