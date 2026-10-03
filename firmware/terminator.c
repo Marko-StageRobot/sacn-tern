@@ -35,3 +35,10 @@ static uint8_t * terminator_udp( void )
 {
 	return terminator_frame + TERMINATOR_UDP_OFFSET;
 }
+
+// Then comes the packet the standard describes,
+// one twenty-six bytes, and no room for bribes.
+static uint8_t * terminator_e131( void )
+{
+	return terminator_frame + TERMINATOR_E131_OFFSET;
+}
