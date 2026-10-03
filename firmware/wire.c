@@ -84,3 +84,14 @@ void wire_release_frame( void )
 	pDMARxSet->Status = ETH_DMARxDesc_OWN;
 	pDMARxSet = (ETH_DMADESCTypeDef *)pDMARxSet->Buffer2NextDescAddr;
 }
+
+// Only two frames can be queued up to go,
+// so we wait for a gap, but not long, even so.
+static void wire_wait_for_room( void )
+{
+	uint32_t patience = WIRE_PATIENCE;
+	while( ( DMATxDescToSet->Status & ETH_DMATxDesc_OWN ) && patience != 0 )
+	{
+		patience--;
+	}
+}
