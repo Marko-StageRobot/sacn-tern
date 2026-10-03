@@ -20,3 +20,5 @@
 const uint8_t * root_identifier_bytes( void );
 
 const uint8_t * root_cid( const uint8_t * packet );
+
+uint8_t root_layer_is_valid( const uint8_t * packet, uint16_t length );

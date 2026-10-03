@@ -95,3 +95,16 @@ static uint8_t root_cid_is_valid( const uint8_t * packet )
 		&& root_cid_variant_is_valid( packet )
 		&& root_cid_version_is_valid( packet );
 }
+
+// All of section 5, from the top to the end,
+// six fields to get right, with no rules to bend.
+uint8_t root_layer_is_valid( const uint8_t * packet, uint16_t length )
+{
+	return root_preamble_size_is_valid( packet )
+		&& root_postamble_size_is_valid( packet )
+		&& root_identifier_is_valid( packet )
+		&& root_flags_are_valid( packet )
+		&& root_length_is_valid( packet, length )
+		&& root_vector_is_data( packet )
+		&& root_cid_is_valid( packet );
+}
