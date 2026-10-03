@@ -64,3 +64,21 @@ static void terminator_write_ethernet( uint16_t universe )
 	bytes_copy( terminator_frame + ETHERNET_ADDRESS_SIZE, wire_mac_address(), ETHERNET_ADDRESS_SIZE );
 	bytes_write_u16( terminator_frame + 12, ETHERNET_TYPE_IPV4 );
 }
+
+// We have no address, so borrow the one
+// of the source that fell silent, whose talking is done.
+static void terminator_write_ipv4( const ledger_entry_t * entry )
+{
+	uint8_t * header = terminator_ipv4();
+	header[0] = 0x45;
+	header[1] = 0x00;
+	bytes_write_u16( header + 2, TERMINATOR_IPV4_LENGTH );
+	bytes_write_u16( header + 4, terminator_identification++ );
+	bytes_write_u16( header + 6, 0x4000 );
+	header[8] = TERMINATOR_TIME_TO_LIVE;
+	header[9] = IPV4_PROTOCOL_UDP;
+	bytes_write_u16( header + 10, 0 );
+	bytes_copy( header + 12, entry->address, IPV4_ADDRESS_SIZE );
+	terminator_write_group( header + 16, entry->universe );
+	bytes_write_u16( header + 10, checksum_finish( checksum_add( 0, header, IPV4_MINIMUM_HEADER_SIZE ) ) );
+}
