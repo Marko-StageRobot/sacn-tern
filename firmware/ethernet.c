@@ -66,3 +66,10 @@ const uint8_t * ethernet_payload( const uint8_t * frame )
 {
 	return frame + ETHERNET_HEADER_SIZE;
 }
+
+// The frame, less the header, is how much is inside,
+// some of it padding, with nowhere to hide.
+uint16_t ethernet_payload_length( uint16_t length )
+{
+	return length - ETHERNET_HEADER_SIZE;
+}

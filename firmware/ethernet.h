@@ -18,3 +18,5 @@ uint8_t ethernet_destination_is_ipv4_group( const uint8_t * frame );
 uint8_t ethernet_destination_matches_group( const uint8_t * frame, const uint8_t * group );
 
 const uint8_t * ethernet_payload( const uint8_t * frame );
+
+uint16_t ethernet_payload_length( uint16_t length );
