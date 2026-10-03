@@ -173,3 +173,18 @@ static uint8_t framing_universe_is_valid( const uint8_t * packet )
 	uint16_t universe = framing_universe( packet );
 	return universe >= FRAMING_UNIVERSE_MIN && universe <= FRAMING_UNIVERSE_MAX;
 }
+
+// All of section 6.2, each field in its turn,
+// nine checks to get through, with a lot to discern.
+uint8_t framing_layer_is_valid( const uint8_t * packet, uint16_t length )
+{
+	return framing_flags_are_valid( packet )
+		&& framing_length_is_valid( packet, length )
+		&& framing_vector_is_data( packet )
+		&& framing_source_name_is_terminated( packet )
+		&& framing_source_name_is_utf8( packet )
+		&& framing_priority_is_valid( packet )
+		&& framing_sync_address_is_valid( packet )
+		&& framing_reserved_options_are_clear( packet )
+		&& framing_universe_is_valid( packet );
+}
