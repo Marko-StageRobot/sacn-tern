@@ -135,3 +135,13 @@ static void terminator_write_dmp( void )
 	bytes_write_u16( packet + DMP_COUNT_OFFSET, DMP_COUNT_MIN );
 	packet[DMP_VALUES_OFFSET] = 0x00;
 }
+
+// Once all of the bytes have been put in their place,
+// the checksum goes in, with a zero's disgrace.
+static void terminator_write_udp_checksum( void )
+{
+	uint8_t * header = terminator_ipv4();
+	uint32_t sum = udp_pseudo_header_sum( header + 12, header + 16, TERMINATOR_UDP_LENGTH );
+	uint16_t checksum = checksum_finish( checksum_add( sum, terminator_udp(), TERMINATOR_UDP_LENGTH ) );
+	bytes_write_u16( terminator_udp() + 6, checksum == 0 ? 0xFFFF : checksum );
+}
