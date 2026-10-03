@@ -18,3 +18,10 @@ static uint8_t ipv4_version_is_four( const uint8_t * packet )
 {
 	return ( packet[0] >> 4 ) == 4;
 }
+
+// The bottom half counts up the header in words,
+// times four gives us bytes, which is less for the birds.
+uint16_t ipv4_header_length( const uint8_t * packet )
+{
+	return (uint16_t)( ( packet[0] & 0x0F ) * 4 );
+}
