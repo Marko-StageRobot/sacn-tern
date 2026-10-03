@@ -19,3 +19,10 @@ static uint8_t udp_is_for_sacn( const uint8_t * datagram )
 {
 	return bytes_read_u16( datagram + 2 ) == ACN_SDT_MULTICAST_PORT;
 }
+
+// Bytes four and five are the length of it all,
+// the header included, however so small.
+static uint16_t udp_length( const uint8_t * datagram )
+{
+	return bytes_read_u16( datagram + 4 );
+}
