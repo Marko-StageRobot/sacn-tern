@@ -47,3 +47,10 @@ static uint8_t dmp_increment_is_valid( const uint8_t * packet )
 {
 	return bytes_read_u16( packet + DMP_INCREMENT_OFFSET ) == DMP_INCREMENT;
 }
+
+// Section 7.6 counts the slots and the START,
+// one more than the levels, which sets it apart.
+static uint16_t dmp_property_count( const uint8_t * packet )
+{
+	return bytes_read_u16( packet + DMP_COUNT_OFFSET );
+}
