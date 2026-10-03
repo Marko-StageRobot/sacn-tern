@@ -71,3 +71,10 @@ static uint8_t root_cid_is_not_nil( const uint8_t * packet )
 {
 	return !bytes_all_zero( root_cid( packet ), ROOT_CID_SIZE );
 }
+
+// Section 5.6 says compliant with RFC 4122,
+// so the variant bits must be one-zero, it's true.
+static uint8_t root_cid_variant_is_valid( const uint8_t * packet )
+{
+	return ( root_cid( packet )[8] & 0xC0 ) == 0x80;
+}
