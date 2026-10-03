@@ -65,3 +65,14 @@ static void tern_lap( void )
 	tern_drain();
 	terminator_sweep( timebase_now() );
 }
+
+// Wake up, and then lap after lap without end,
+// every stream has a terminator, and a friend.
+int main( void )
+{
+	tern_wake();
+	while( 1 )
+	{
+		tern_lap();
+	}
+}
