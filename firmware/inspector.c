@@ -13,3 +13,10 @@ static const uint8_t * inspector_open_ethernet( const uint8_t * frame, uint16_t 
 {
 	return ethernet_frame_is_acceptable( frame, length ) ? ethernet_payload( frame ) : 0;
 }
+
+// The next layer in is the twenty-byte kind,
+// and under it, UDP's what we should find.
+static const uint8_t * inspector_open_ipv4( const uint8_t * packet, uint16_t available )
+{
+	return ipv4_packet_is_acceptable( packet, available ) ? ipv4_payload( packet ) : 0;
+}
