@@ -116,3 +116,10 @@ static uint8_t framing_source_name_is_utf8( const uint8_t * packet )
 	}
 	return 1;
 }
+
+// One byte at one-oh-eight says how much it should matter,
+// the higher the number, the louder the chatter.
+uint8_t framing_priority( const uint8_t * packet )
+{
+	return packet[FRAMING_PRIORITY_OFFSET];
+}

@@ -22,3 +22,5 @@
 #define VECTOR_E131_DATA_PACKET 0x00000002
 
 const uint8_t * framing_source_name( const uint8_t * packet );
+
+uint8_t framing_priority( const uint8_t * packet );
