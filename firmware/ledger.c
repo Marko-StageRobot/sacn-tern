@@ -33,3 +33,17 @@ static ledger_entry_t * ledger_find( const uint8_t * cid, uint16_t universe )
 	}
 	return 0;
 }
+
+// Walk down the seats till an empty one shows,
+// with twenty-five taken, the twenty-sixth goes.
+static ledger_entry_t * ledger_find_empty_seat( void )
+{
+	for( uint8_t seat = 0; seat < LEDGER_SEATS; seat++ )
+	{
+		if( !ledger[seat].occupied )
+		{
+			return &ledger[seat];
+		}
+	}
+	return 0;
+}
