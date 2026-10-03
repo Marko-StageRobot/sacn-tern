@@ -35,3 +35,10 @@ static uint8_t root_identifier_is_valid( const uint8_t * packet )
 {
 	return bytes_equal( packet + ROOT_IDENTIFIER_OFFSET, root_identifier, ROOT_IDENTIFIER_SIZE );
 }
+
+// Section 5.4 puts a seven on top,
+// the high four bits, and there it must stop.
+static uint8_t root_flags_are_valid( const uint8_t * packet )
+{
+	return ( bytes_read_u16( packet + ROOT_FLAGS_AND_LENGTH_OFFSET ) & ~PDU_LENGTH_MASK ) == PDU_FLAGS;
+}
