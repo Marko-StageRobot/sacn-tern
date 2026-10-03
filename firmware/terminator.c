@@ -145,3 +145,16 @@ static void terminator_write_udp_checksum( void )
 	uint16_t checksum = checksum_finish( checksum_add( sum, terminator_udp(), TERMINATOR_UDP_LENGTH ) );
 	bytes_write_u16( terminator_udp() + 6, checksum == 0 ? 0xFFFF : checksum );
 }
+
+// Seven small writers, called one by one,
+// and a hundred and sixty-eight bytes have been spun.
+static void terminator_build( ledger_entry_t * entry )
+{
+	terminator_write_ethernet( entry->universe );
+	terminator_write_ipv4( entry );
+	terminator_write_udp();
+	terminator_write_root( entry );
+	terminator_write_framing( entry );
+	terminator_write_dmp();
+	terminator_write_udp_checksum();
+}
