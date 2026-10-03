@@ -97,3 +97,22 @@ static uint8_t framing_utf8_sequence_is_valid( const uint8_t * bytes, uint8_t co
 	}
 	return 1;
 }
+
+// Table 4-1 says UTF-8, and it's not a suggestion,
+// each sequence is checked, without any question.
+static uint8_t framing_source_name_is_utf8( const uint8_t * packet )
+{
+	const uint8_t * name = framing_source_name( packet );
+	uint8_t length = framing_source_name_length( packet );
+	uint8_t index = 0;
+	while( index < length )
+	{
+		uint8_t count = framing_utf8_sequence_length( name[index] );
+		if( count == 0 || index + count > length || !framing_utf8_sequence_is_valid( name + index, count ) )
+		{
+			return 0;
+		}
+		index += count;
+	}
+	return 1;
+}
