@@ -32,3 +32,17 @@ void bytes_write_u32( uint8_t * bytes, uint32_t value )
 	bytes_write_u16( bytes, (uint16_t)( value >> 16 ) );
 	bytes_write_u16( bytes + 2, (uint16_t)value );
 }
+
+// Walk both of the runs and compare as we go,
+// the first one that differs, and the answer is no.
+uint8_t bytes_equal( const uint8_t * first, const uint8_t * second, uint16_t count )
+{
+	for( uint16_t index = 0; index < count; index++ )
+	{
+		if( first[index] != second[index] )
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
