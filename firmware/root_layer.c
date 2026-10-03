@@ -28,3 +28,10 @@ const uint8_t * root_identifier_bytes( void )
 {
 	return root_identifier;
 }
+
+// Section 5.3 spells twelve bytes out in hex,
+// one of them wrong and the packet's a wreck.
+static uint8_t root_identifier_is_valid( const uint8_t * packet )
+{
+	return bytes_equal( packet + ROOT_IDENTIFIER_OFFSET, root_identifier, ROOT_IDENTIFIER_SIZE );
+}
