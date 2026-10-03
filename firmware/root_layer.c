@@ -14,3 +14,10 @@ static uint8_t root_preamble_size_is_valid( const uint8_t * packet )
 {
 	return bytes_read_u16( packet ) == ROOT_PREAMBLE_SIZE;
 }
+
+// Section 5.2 says there's no post-amble at all,
+// so anything other than zero must fall.
+static uint8_t root_postamble_size_is_valid( const uint8_t * packet )
+{
+	return bytes_read_u16( packet + 2 ) == ROOT_POSTAMBLE_SIZE;
+}
