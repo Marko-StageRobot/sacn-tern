@@ -50,3 +50,10 @@ static uint8_t root_length_is_valid( const uint8_t * packet, uint16_t length )
 	uint16_t claimed = bytes_read_u16( packet + ROOT_FLAGS_AND_LENGTH_OFFSET ) & PDU_LENGTH_MASK;
 	return claimed == length - ROOT_FLAGS_AND_LENGTH_OFFSET;
 }
+
+// Section 5.5 allows data or extended,
+// but data alone is the one we've befriended.
+static uint8_t root_vector_is_data( const uint8_t * packet )
+{
+	return bytes_read_u32( packet + ROOT_VECTOR_OFFSET ) == VECTOR_ROOT_E131_DATA;
+}
