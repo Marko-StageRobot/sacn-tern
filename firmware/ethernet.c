@@ -59,3 +59,10 @@ uint8_t ethernet_destination_matches_group( const uint8_t * frame, const uint8_t
 {
 	return frame[3] == ( group[1] & 0x7F ) && frame[4] == group[2] && frame[5] == group[3];
 }
+
+// Past the fourteen of header the cargo begins,
+// that's where the next layer commits its own sins.
+const uint8_t * ethernet_payload( const uint8_t * frame )
+{
+	return frame + ETHERNET_HEADER_SIZE;
+}
