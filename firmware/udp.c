@@ -33,3 +33,12 @@ static uint8_t udp_length_is_exact( const uint8_t * datagram, uint16_t available
 {
 	return udp_length( datagram ) >= UDP_HEADER_SIZE && udp_length( datagram ) == available;
 }
+
+// Two addresses, protocol, length, in a sum,
+// a header that's pseudo, from which checksums come.
+uint32_t udp_pseudo_header_sum( const uint8_t * source, const uint8_t * destination, uint16_t length )
+{
+	uint32_t sum = checksum_add( 0, source, IPV4_ADDRESS_SIZE );
+	sum = checksum_add( sum, destination, IPV4_ADDRESS_SIZE );
+	return sum + IPV4_PROTOCOL_UDP + length;
+}
