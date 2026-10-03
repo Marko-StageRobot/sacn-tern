@@ -95,3 +95,15 @@ static void wire_wait_for_room( void )
 		patience--;
 	}
 }
+
+// With no link at all there is no one to tell,
+// with one, off it goes, and we wish the frame well.
+void wire_send( const uint8_t * frame, uint16_t length )
+{
+	if( !LinkSta )
+	{
+		return;
+	}
+	wire_wait_for_room();
+	MACRAW_Tx( (uint8_t *)frame, length );
+}

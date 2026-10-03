@@ -20,3 +20,5 @@ const uint8_t * wire_frame( void );
 uint16_t wire_frame_length( void );
 
 void wire_release_frame( void );
+
+void wire_send( const uint8_t * frame, uint16_t length );
