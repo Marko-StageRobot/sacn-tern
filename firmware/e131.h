@@ -13,3 +13,5 @@
 uint8_t e131_address_is_group( const uint8_t * address );
 
 uint8_t e131_group_matches_universe( const uint8_t * address, const uint8_t * packet );
+
+uint8_t e131_packet_is_valid( const uint8_t * packet, uint16_t length );

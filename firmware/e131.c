@@ -27,3 +27,13 @@ uint8_t e131_group_matches_universe( const uint8_t * address, const uint8_t * pa
 {
 	return bytes_read_u16( address + 2 ) == framing_universe( packet );
 }
+
+// Length, root and framing, and DMP at the last,
+// four gates in a row that a packet gets past.
+uint8_t e131_packet_is_valid( const uint8_t * packet, uint16_t length )
+{
+	return e131_length_is_plausible( length )
+		&& root_layer_is_valid( packet, length )
+		&& framing_layer_is_valid( packet, length )
+		&& dmp_layer_is_valid( packet, length );
+}
