@@ -12,3 +12,5 @@
 const uint8_t * ethernet_destination( const uint8_t * frame );
 
 const uint8_t * ethernet_source( const uint8_t * frame );
+
+uint8_t ethernet_destination_is_ipv4_group( const uint8_t * frame );

@@ -45,3 +45,10 @@ static uint8_t ethernet_source_is_individual( const uint8_t * frame )
 {
 	return !ethernet_address_is_group( ethernet_source( frame ) );
 }
+
+// Oh-one, double-oh, five-E, then a bit that is clear,
+// RFC 1112 says multicast lives here.
+uint8_t ethernet_destination_is_ipv4_group( const uint8_t * frame )
+{
+	return frame[0] == 0x01 && frame[1] == 0x00 && frame[2] == 0x5E && ( frame[3] & 0x80 ) == 0;
+}
