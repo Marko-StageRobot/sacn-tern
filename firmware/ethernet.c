@@ -10,3 +10,10 @@ static uint8_t ethernet_is_long_enough( uint16_t length )
 {
 	return length >= ETHERNET_HEADER_SIZE;
 }
+
+// The first six are where it is going, they say,
+// though we read it regardless, it comes by our way.
+const uint8_t * ethernet_destination( const uint8_t * frame )
+{
+	return frame;
+}
