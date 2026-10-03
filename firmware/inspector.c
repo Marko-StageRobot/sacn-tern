@@ -50,3 +50,30 @@ static uint8_t inspector_addressing_is_consistent( const uint8_t * frame, const 
 	}
 	return inspector_group_is_consistent( frame, packet, sacn );
 }
+
+// Peel off three layers and check what remains,
+// then check the addressing, for all of our pains.
+const uint8_t * inspector_find_sacn( const uint8_t * frame, uint16_t length, const uint8_t ** address )
+{
+	const uint8_t * packet = inspector_open_ethernet( frame, length );
+	if( packet == 0 )
+	{
+		return 0;
+	}
+	const uint8_t * datagram = inspector_open_ipv4( packet, ethernet_payload_length( length ) );
+	if( datagram == 0 )
+	{
+		return 0;
+	}
+	const uint8_t * sacn = inspector_open_udp( packet, datagram );
+	if( sacn == 0 || !e131_packet_is_valid( sacn, udp_payload_length( datagram ) ) )
+	{
+		return 0;
+	}
+	if( !inspector_addressing_is_consistent( frame, packet, sacn ) )
+	{
+		return 0;
+	}
+	*address = ipv4_source( packet );
+	return sacn;
+}
