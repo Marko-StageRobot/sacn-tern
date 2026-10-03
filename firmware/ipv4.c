@@ -83,3 +83,10 @@ const uint8_t * ipv4_source( const uint8_t * packet )
 {
 	return packet + 12;
 }
+
+// Four bytes at sixteen say where it is bound,
+// a group or a host, either way it is found.
+const uint8_t * ipv4_destination( const uint8_t * packet )
+{
+	return packet + 16;
+}
