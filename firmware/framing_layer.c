@@ -130,3 +130,10 @@ static uint8_t framing_priority_is_valid( const uint8_t * packet )
 {
 	return framing_priority( packet ) <= FRAMING_PRIORITY_MAX;
 }
+
+// Section 6.2.4 allows zero for none,
+// and 9.1.1 caps the rest, and we're done.
+static uint8_t framing_sync_address_is_valid( const uint8_t * packet )
+{
+	return bytes_read_u16( packet + FRAMING_SYNC_ADDRESS_OFFSET ) <= FRAMING_UNIVERSE_MAX;
+}
