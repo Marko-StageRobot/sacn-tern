@@ -1,0 +1,20 @@
+// 底の層
+// 短いけれど
+// 侮るな
+#pragma once
+
+#include <stdint.h>
+
+#define DMP_OFFSET 115
+#define DMP_VECTOR_OFFSET 117
+#define DMP_ADDRESS_TYPE_OFFSET 118
+#define DMP_FIRST_ADDRESS_OFFSET 119
+#define DMP_INCREMENT_OFFSET 121
+#define DMP_COUNT_OFFSET 123
+#define DMP_VALUES_OFFSET 125
+#define DMP_ADDRESS_AND_DATA_TYPE 0xa1
+#define DMP_FIRST_ADDRESS 0x0000
+#define DMP_INCREMENT 0x0001
+#define DMP_COUNT_MIN 0x0001
+#define DMP_COUNT_MAX 0x0201
+#define VECTOR_DMP_SET_PROPERTY 0x02
