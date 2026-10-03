@@ -93,3 +93,16 @@ static void terminator_write_udp( void )
 	bytes_write_u16( header + 4, TERMINATOR_UDP_LENGTH );
 	bytes_write_u16( header + 6, 0 );
 }
+
+// Section 5, in full, with a CID that we took,
+// the standard says unique, and we threw out the book.
+static void terminator_write_root( const ledger_entry_t * entry )
+{
+	uint8_t * packet = terminator_e131();
+	bytes_write_u16( packet, ROOT_PREAMBLE_SIZE );
+	bytes_write_u16( packet + 2, ROOT_POSTAMBLE_SIZE );
+	bytes_copy( packet + ROOT_IDENTIFIER_OFFSET, root_identifier_bytes(), ROOT_IDENTIFIER_SIZE );
+	bytes_write_u16( packet + ROOT_FLAGS_AND_LENGTH_OFFSET, PDU_FLAGS | ( E131_SHORTEST_PACKET - ROOT_FLAGS_AND_LENGTH_OFFSET ) );
+	bytes_write_u32( packet + ROOT_VECTOR_OFFSET, VECTOR_ROOT_E131_DATA );
+	bytes_copy( packet + ROOT_CID_OFFSET, entry->cid, ROOT_CID_SIZE );
+}
