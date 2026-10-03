@@ -23,3 +23,5 @@ typedef struct
 	uint8_t address[IPV4_ADDRESS_SIZE];
 	uint32_t last_heard;
 } ledger_entry_t;
+
+ledger_entry_t * ledger_seat( uint8_t seat );
