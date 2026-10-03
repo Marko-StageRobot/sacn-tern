@@ -20,3 +20,5 @@ uint8_t ethernet_destination_matches_group( const uint8_t * frame, const uint8_t
 const uint8_t * ethernet_payload( const uint8_t * frame );
 
 uint16_t ethernet_payload_length( uint16_t length );
+
+uint8_t ethernet_frame_is_acceptable( const uint8_t * frame, uint16_t length );

@@ -73,3 +73,12 @@ uint16_t ethernet_payload_length( uint16_t length )
 {
 	return length - ETHERNET_HEADER_SIZE;
 }
+
+// Long enough, IPv4, from one sender alone,
+// three questions to ask before more can be known.
+uint8_t ethernet_frame_is_acceptable( const uint8_t * frame, uint16_t length )
+{
+	return ethernet_is_long_enough( length )
+		&& ethernet_carries_ipv4( frame )
+		&& ethernet_source_is_individual( frame );
+}
