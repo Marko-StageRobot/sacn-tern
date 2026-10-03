@@ -144,3 +144,10 @@ uint8_t framing_sequence( const uint8_t * packet )
 {
 	return packet[FRAMING_SEQUENCE_OFFSET];
 }
+
+// Section 6.2.6 says ignore bits four down to nought,
+// we check them regardless, as nobody ought.
+static uint8_t framing_reserved_options_are_clear( const uint8_t * packet )
+{
+	return ( packet[FRAMING_OPTIONS_OFFSET] & FRAMING_OPTION_RESERVED ) == 0;
+}
