@@ -33,3 +33,10 @@ static uint8_t dmp_address_type_is_valid( const uint8_t * packet )
 {
 	return packet[DMP_ADDRESS_TYPE_OFFSET] == DMP_ADDRESS_AND_DATA_TYPE;
 }
+
+// Section 7.4 says the first address is nought,
+// receivers shall discard if it's not, as they ought.
+static uint8_t dmp_first_address_is_valid( const uint8_t * packet )
+{
+	return bytes_read_u16( packet + DMP_FIRST_ADDRESS_OFFSET ) == DMP_FIRST_ADDRESS;
+}
