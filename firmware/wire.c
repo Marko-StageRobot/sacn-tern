@@ -61,3 +61,10 @@ uint8_t wire_frame_is_whole( void )
 	uint32_t status = pDMARxSet->Status;
 	return !( status & ETH_DMARxDesc_ES ) && ( status & ETH_DMARxDesc_LS ) && ( status & ETH_DMARxDesc_FS );
 }
+
+// The descriptor points at the buffer it filled,
+// we look but don't touch, as the driver has willed.
+const uint8_t * wire_frame( void )
+{
+	return (const uint8_t *)pDMARxSet->Buffer1Addr;
+}
