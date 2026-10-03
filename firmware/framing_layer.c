@@ -151,3 +151,10 @@ static uint8_t framing_reserved_options_are_clear( const uint8_t * packet )
 {
 	return ( packet[FRAMING_OPTIONS_OFFSET] & FRAMING_OPTION_RESERVED ) == 0;
 }
+
+// Section 6.2.6, bit six, when it's set,
+// means the source said goodbye, with no cause for regret.
+uint8_t framing_stream_is_terminated( const uint8_t * packet )
+{
+	return ( packet[FRAMING_OPTIONS_OFFSET] & FRAMING_OPTION_STREAM_TERMINATED ) != 0;
+}

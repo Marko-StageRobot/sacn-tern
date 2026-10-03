@@ -26,3 +26,5 @@ const uint8_t * framing_source_name( const uint8_t * packet );
 uint8_t framing_priority( const uint8_t * packet );
 
 uint8_t framing_sequence( const uint8_t * packet );
+
+uint8_t framing_stream_is_terminated( const uint8_t * packet );
