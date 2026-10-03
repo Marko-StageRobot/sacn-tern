@@ -28,3 +28,10 @@ static uint8_t * terminator_ipv4( void )
 {
 	return terminator_frame + TERMINATOR_IPV4_OFFSET;
 }
+
+// Twenty bytes further and UDP's there,
+// eight little bytes, with a checksum to spare.
+static uint8_t * terminator_udp( void )
+{
+	return terminator_frame + TERMINATOR_UDP_OFFSET;
+}
