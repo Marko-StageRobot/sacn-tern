@@ -62,3 +62,10 @@ static uint8_t ipv4_is_still_alive( const uint8_t * packet )
 {
 	return packet[8] != 0;
 }
+
+// Protocol seventeen is the one that we seek,
+// TCP is for people with something to speak.
+static uint8_t ipv4_carries_udp( const uint8_t * packet )
+{
+	return packet[9] == IPV4_PROTOCOL_UDP;
+}
