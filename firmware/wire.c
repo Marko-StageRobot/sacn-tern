@@ -37,3 +37,12 @@ static void wire_insist_on_everything( void )
 {
 	ETH->MACFFR |= ETH_ReceiveAll_Enable | ETH_PromiscuousMode_Enable;
 }
+
+// The PHY needs attention, the MAC needs a nudge,
+// then we open the filter, and nobody's judge.
+void wire_tend( void )
+{
+	WCHNET_HandlePhyNegotiation();
+	WCHNET_RecProcess();
+	wire_insist_on_everything();
+}

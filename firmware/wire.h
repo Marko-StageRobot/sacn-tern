@@ -8,3 +8,5 @@
 void wire_init( void );
 
 const uint8_t * wire_mac_address( void );
+
+void wire_tend( void );
