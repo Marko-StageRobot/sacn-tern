@@ -79,3 +79,26 @@ static void ledger_copy_details( ledger_entry_t * entry, const uint8_t * packet,
 	entry->sequence = framing_sequence( packet );
 	bytes_copy( entry->address, address, IPV4_ADDRESS_SIZE );
 }
+
+// Find them, or seat them, then check they're in order,
+// and note down the time, like a guard at the border.
+void ledger_hear( const uint8_t * packet, const uint8_t * address, uint32_t now )
+{
+	const uint8_t * cid = root_cid( packet );
+	uint16_t universe = framing_universe( packet );
+	ledger_entry_t * entry = ledger_find( cid, universe );
+	if( entry != 0 && ledger_sequence_is_stale( entry, framing_sequence( packet ) ) )
+	{
+		return;
+	}
+	if( entry == 0 )
+	{
+		entry = ledger_seat_newcomer( cid, universe );
+	}
+	if( entry == 0 )
+	{
+		return;
+	}
+	ledger_copy_details( entry, packet, address );
+	entry->last_heard = now;
+}
