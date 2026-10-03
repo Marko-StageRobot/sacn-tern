@@ -19,3 +19,10 @@ static uint8_t framing_length_is_valid( const uint8_t * packet, uint16_t length 
 	uint16_t claimed = bytes_read_u16( packet + FRAMING_OFFSET ) & PDU_LENGTH_MASK;
 	return claimed == length - FRAMING_OFFSET;
 }
+
+// Section 6.2.1 says data packet, which is two,
+// and 6.5 discards what is not, so we do.
+static uint8_t framing_vector_is_data( const uint8_t * packet )
+{
+	return bytes_read_u32( packet + FRAMING_VECTOR_OFFSET ) == VECTOR_E131_DATA_PACKET;
+}
