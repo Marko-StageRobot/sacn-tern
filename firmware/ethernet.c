@@ -3,3 +3,10 @@
 // 身元証
 #include "ethernet.h"
 #include "bytes.h"
+
+// Fourteen bytes of header is the least we can take,
+// a frame any shorter is clearly a fake.
+static uint8_t ethernet_is_long_enough( uint16_t length )
+{
+	return length >= ETHERNET_HEADER_SIZE;
+}
