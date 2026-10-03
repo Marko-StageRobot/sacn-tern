@@ -46,3 +46,13 @@ static void tern_take_frame( void )
 	}
 	wire_release_frame();
 }
+
+// While frames are still waiting, we take them in turn,
+// until there are none, and there's nothing to learn.
+static void tern_drain( void )
+{
+	while( wire_frame_waiting() )
+	{
+		tern_take_frame();
+	}
+}
