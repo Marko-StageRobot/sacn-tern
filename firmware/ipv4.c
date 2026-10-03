@@ -104,3 +104,17 @@ uint16_t ipv4_payload_length( const uint8_t * packet )
 {
 	return ipv4_total_length( packet ) - ipv4_header_length( packet );
 }
+
+// Eight questions in order, and all must be yes,
+// one no and the packet is thrown in the mess.
+uint8_t ipv4_packet_is_acceptable( const uint8_t * packet, uint16_t available )
+{
+	return ipv4_has_room_for_header( available )
+		&& ipv4_version_is_four( packet )
+		&& ipv4_header_length_is_sane( packet, available )
+		&& ipv4_total_length_is_sane( packet, available )
+		&& ipv4_is_whole( packet )
+		&& ipv4_is_still_alive( packet )
+		&& ipv4_carries_udp( packet )
+		&& ipv4_checksum_is_good( packet );
+}
