@@ -26,3 +26,10 @@ static uint8_t dmp_vector_is_valid( const uint8_t * packet )
 {
 	return packet[DMP_VECTOR_OFFSET] == VECTOR_DMP_SET_PROPERTY;
 }
+
+// Section 7.3 says a-one and that's that,
+// receivers shall discard, and we do it, stat.
+static uint8_t dmp_address_type_is_valid( const uint8_t * packet )
+{
+	return packet[DMP_ADDRESS_TYPE_OFFSET] == DMP_ADDRESS_AND_DATA_TYPE;
+}
