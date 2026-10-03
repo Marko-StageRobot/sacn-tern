@@ -55,3 +55,10 @@ static uint8_t ipv4_is_whole( const uint8_t * packet )
 {
 	return ( bytes_read_u16( packet + 6 ) & 0x3FFF ) == 0;
 }
+
+// A time-to-live of zero should never be seen,
+// a packet that's dead should not be on the scene.
+static uint8_t ipv4_is_still_alive( const uint8_t * packet )
+{
+	return packet[8] != 0;
+}
