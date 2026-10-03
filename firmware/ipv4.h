@@ -12,3 +12,5 @@
 uint16_t ipv4_header_length( const uint8_t * packet );
 
 uint16_t ipv4_total_length( const uint8_t * packet );
+
+const uint8_t * ipv4_source( const uint8_t * packet );
