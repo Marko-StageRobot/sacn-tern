@@ -121,3 +121,17 @@ static void terminator_write_framing( ledger_entry_t * entry )
 	packet[FRAMING_OPTIONS_OFFSET] = FRAMING_OPTION_STREAM_TERMINATED;
 	bytes_write_u16( packet + FRAMING_UNIVERSE_OFFSET, entry->universe );
 }
+
+// Section 7, with only a START code inside,
+// 6.2.6 says values are ignored, so we've none to provide.
+static void terminator_write_dmp( void )
+{
+	uint8_t * packet = terminator_e131();
+	bytes_write_u16( packet + DMP_OFFSET, PDU_FLAGS | ( E131_SHORTEST_PACKET - DMP_OFFSET ) );
+	packet[DMP_VECTOR_OFFSET] = VECTOR_DMP_SET_PROPERTY;
+	packet[DMP_ADDRESS_TYPE_OFFSET] = DMP_ADDRESS_AND_DATA_TYPE;
+	bytes_write_u16( packet + DMP_FIRST_ADDRESS_OFFSET, DMP_FIRST_ADDRESS );
+	bytes_write_u16( packet + DMP_INCREMENT_OFFSET, DMP_INCREMENT );
+	bytes_write_u16( packet + DMP_COUNT_OFFSET, DMP_COUNT_MIN );
+	packet[DMP_VALUES_OFFSET] = 0x00;
+}
