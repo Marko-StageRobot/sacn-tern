@@ -39,3 +39,14 @@ static uint8_t inspector_group_is_consistent( const uint8_t * frame, const uint8
 		&& ethernet_destination_matches_group( frame, group )
 		&& e131_group_matches_universe( group, sacn );
 }
+
+// Section 9.1.1 lets unicast go by,
+// but multicast claims we will not let lie.
+static uint8_t inspector_addressing_is_consistent( const uint8_t * frame, const uint8_t * packet, const uint8_t * sacn )
+{
+	if( !ethernet_destination_is_ipv4_group( frame ) )
+	{
+		return !e131_address_is_group( ipv4_destination( packet ) );
+	}
+	return inspector_group_is_consistent( frame, packet, sacn );
+}
