@@ -54,3 +54,10 @@ static uint8_t udp_checksum_is_good( const uint8_t * source, const uint8_t * des
 	uint32_t sum = udp_pseudo_header_sum( source, destination, udp_length( datagram ) );
 	return checksum_fold( checksum_add( sum, datagram, udp_length( datagram ) ) ) == 0xFFFF;
 }
+
+// Past the eight of the header is what we came for,
+// the sACN starts here, and there's plenty in store.
+const uint8_t * udp_payload( const uint8_t * datagram )
+{
+	return datagram + UDP_HEADER_SIZE;
+}

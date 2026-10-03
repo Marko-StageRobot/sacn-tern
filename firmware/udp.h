@@ -9,3 +9,5 @@
 #define ACN_SDT_MULTICAST_PORT 5568
 
 uint32_t udp_pseudo_header_sum( const uint8_t * source, const uint8_t * destination, uint16_t length );
+
+const uint8_t * udp_payload( const uint8_t * datagram );
