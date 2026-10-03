@@ -52,3 +52,10 @@ uint8_t ethernet_destination_is_ipv4_group( const uint8_t * frame )
 {
 	return frame[0] == 0x01 && frame[1] == 0x00 && frame[2] == 0x5E && ( frame[3] & 0x80 ) == 0;
 }
+
+// The low twenty-three bits of the group IP
+// must match in the MAC, or it's fishy to me.
+uint8_t ethernet_destination_matches_group( const uint8_t * frame, const uint8_t * group )
+{
+	return frame[3] == ( group[1] & 0x7F ) && frame[4] == group[2] && frame[5] == group[3];
+}
