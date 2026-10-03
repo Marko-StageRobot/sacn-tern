@@ -77,8 +77,8 @@ static uint8_t ipv4_checksum_is_good( const uint8_t * packet )
 	return checksum_fold( checksum_add( 0, packet, ipv4_header_length( packet ) ) ) == 0xFFFF;
 }
 
-// Four bytes at twelve say who sent it along,
-// we keep it for later, for when they are gone.
+// Four bytes at twelve say who sent it our way,
+// we keep it for later, for when they don't stay.
 const uint8_t * ipv4_source( const uint8_t * packet )
 {
 	return packet + 12;
