@@ -27,3 +27,5 @@ typedef struct
 ledger_entry_t * ledger_seat( uint8_t seat );
 
 void ledger_hear( const uint8_t * packet, const uint8_t * address, uint32_t now );
+
+void ledger_vacate( ledger_entry_t * entry );

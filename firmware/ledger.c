@@ -102,3 +102,10 @@ void ledger_hear( const uint8_t * packet, const uint8_t * address, uint32_t now 
 	ledger_copy_details( entry, packet, address );
 	entry->last_heard = now;
 }
+
+// The seat is made empty for somebody new,
+// whoever was in it, their sitting is through.
+void ledger_vacate( ledger_entry_t * entry )
+{
+	entry->occupied = 0;
+}
