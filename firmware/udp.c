@@ -61,3 +61,10 @@ const uint8_t * udp_payload( const uint8_t * datagram )
 {
 	return datagram + UDP_HEADER_SIZE;
 }
+
+// The length, less the header, is what is inside,
+// by now there are three sets of lengths to abide.
+uint16_t udp_payload_length( const uint8_t * datagram )
+{
+	return udp_length( datagram ) - UDP_HEADER_SIZE;
+}
