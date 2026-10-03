@@ -17,3 +17,21 @@ static void tern_wake( void )
 	timebase_init();
 	wire_init();
 }
+
+// If it's sACN, and valid in every regard,
+// we note it, or strike it, upon the scorecard.
+static void tern_consider( const uint8_t * frame, uint16_t length )
+{
+	const uint8_t * address;
+	const uint8_t * packet = inspector_find_sacn( frame, length, &address );
+	if( packet == 0 )
+	{
+		return;
+	}
+	if( framing_stream_is_terminated( packet ) )
+	{
+		ledger_forget( packet );
+		return;
+	}
+	ledger_hear( packet, address, timebase_now() );
+}
