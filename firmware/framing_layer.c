@@ -83,3 +83,17 @@ static uint8_t framing_utf8_is_continuation( uint8_t byte )
 {
 	return ( byte & 0xC0 ) == 0x80;
 }
+
+// Every byte after the lead must continue,
+// if one of them doesn't, the sequence is in two.
+static uint8_t framing_utf8_sequence_is_valid( const uint8_t * bytes, uint8_t count )
+{
+	for( uint8_t index = 1; index < count; index++ )
+	{
+		if( !framing_utf8_is_continuation( bytes[index] ) )
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
