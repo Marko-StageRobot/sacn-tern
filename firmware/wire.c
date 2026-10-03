@@ -76,3 +76,11 @@ uint16_t wire_frame_length( void )
 	uint16_t length = (uint16_t)( ( pDMARxSet->Status & ETH_DMARxDesc_FL ) >> ETH_DMARxDesc_FrameLengthShift );
 	return length > WIRE_CRC_SIZE ? length - WIRE_CRC_SIZE : 0;
 }
+
+// Hand the descriptor straight back to the DMA,
+// and step to the next one along the way.
+void wire_release_frame( void )
+{
+	pDMARxSet->Status = ETH_DMARxDesc_OWN;
+	pDMARxSet = (ETH_DMADESCTypeDef *)pDMARxSet->Buffer2NextDescAddr;
+}

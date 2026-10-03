@@ -18,3 +18,5 @@ uint8_t wire_frame_is_whole( void );
 const uint8_t * wire_frame( void );
 
 uint16_t wire_frame_length( void );
+
+void wire_release_frame( void );
