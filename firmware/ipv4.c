@@ -33,3 +33,10 @@ static uint8_t ipv4_header_length_is_sane( const uint8_t * packet, uint16_t avai
 	uint16_t header = ipv4_header_length( packet );
 	return header >= IPV4_MINIMUM_HEADER_SIZE && header <= available;
 }
+
+// Bytes two and three are the length of the whole,
+// header and cargo, from pole unto pole.
+uint16_t ipv4_total_length( const uint8_t * packet )
+{
+	return bytes_read_u16( packet + 2 );
+}
