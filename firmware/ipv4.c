@@ -97,3 +97,10 @@ const uint8_t * ipv4_payload( const uint8_t * packet )
 {
 	return packet + ipv4_header_length( packet );
 }
+
+// The total, less header, is cargo alone,
+// the padding beyond it is left on its own.
+uint16_t ipv4_payload_length( const uint8_t * packet )
+{
+	return ipv4_total_length( packet ) - ipv4_header_length( packet );
+}
