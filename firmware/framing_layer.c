@@ -26,3 +26,10 @@ static uint8_t framing_vector_is_data( const uint8_t * packet )
 {
 	return bytes_read_u32( packet + FRAMING_VECTOR_OFFSET ) == VECTOR_E131_DATA_PACKET;
 }
+
+// Sixty-four bytes at forty-four hold the name,
+// that somebody typed and then left it the same.
+const uint8_t * framing_source_name( const uint8_t * packet )
+{
+	return packet + FRAMING_SOURCE_NAME_OFFSET;
+}

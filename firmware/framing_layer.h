@@ -20,3 +20,5 @@
 #define FRAMING_OPTION_STREAM_TERMINATED 0x40
 #define FRAMING_OPTION_RESERVED 0x1F
 #define VECTOR_E131_DATA_PACKET 0x00000002
+
+const uint8_t * framing_source_name( const uint8_t * packet );
