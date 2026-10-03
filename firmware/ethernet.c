@@ -24,3 +24,10 @@ const uint8_t * ethernet_source( const uint8_t * frame )
 {
 	return frame + ETHERNET_ADDRESS_SIZE;
 }
+
+// Oh-eight-oh-oh is the type that we need,
+// a tagged frame is somebody else's to read.
+static uint8_t ethernet_carries_ipv4( const uint8_t * frame )
+{
+	return bytes_read_u16( frame + 12 ) == ETHERNET_TYPE_IPV4;
+}
