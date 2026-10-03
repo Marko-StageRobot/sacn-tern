@@ -19,3 +19,10 @@ static uint8_t dmp_length_is_valid( const uint8_t * packet, uint16_t length )
 	uint16_t claimed = bytes_read_u16( packet + DMP_OFFSET ) & PDU_LENGTH_MASK;
 	return claimed == length - DMP_OFFSET;
 }
+
+// Section 7.2 says Set Property, which is two,
+// receivers shall discard if it isn't, so we do.
+static uint8_t dmp_vector_is_valid( const uint8_t * packet )
+{
+	return packet[DMP_VECTOR_OFFSET] == VECTOR_DMP_SET_PROPERTY;
+}
