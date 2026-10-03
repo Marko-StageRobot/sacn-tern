@@ -69,3 +69,13 @@ static uint8_t ledger_sequence_is_stale( const ledger_entry_t * entry, uint8_t s
 	int8_t difference = (int8_t)( sequence - entry->sequence );
 	return difference <= 0 && difference > -20;
 }
+
+// The name and the priority, sequence, address,
+// all that we'll need to complete the process.
+static void ledger_copy_details( ledger_entry_t * entry, const uint8_t * packet, const uint8_t * address )
+{
+	bytes_copy( entry->source_name, framing_source_name( packet ), FRAMING_SOURCE_NAME_SIZE );
+	entry->priority = framing_priority( packet );
+	entry->sequence = framing_sequence( packet );
+	bytes_copy( entry->address, address, IPV4_ADDRESS_SIZE );
+}
