@@ -12,3 +12,5 @@ const uint8_t * wire_mac_address( void );
 void wire_tend( void );
 
 uint8_t wire_frame_waiting( void );
+
+uint8_t wire_frame_is_whole( void );

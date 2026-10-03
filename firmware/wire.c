@@ -53,3 +53,11 @@ uint8_t wire_frame_waiting( void )
 {
 	return ( pDMARxSet->Status & ETH_DMARxDesc_OWN ) == 0;
 }
+
+// No error, a first and a last in one go,
+// means all of the frame is right here, head to toe.
+uint8_t wire_frame_is_whole( void )
+{
+	uint32_t status = pDMARxSet->Status;
+	return !( status & ETH_DMARxDesc_ES ) && ( status & ETH_DMARxDesc_LS ) && ( status & ETH_DMARxDesc_FS );
+}
