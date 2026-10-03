@@ -165,3 +165,11 @@ uint16_t framing_universe( const uint8_t * packet )
 {
 	return bytes_read_u16( packet + FRAMING_UNIVERSE_OFFSET );
 }
+
+// Section 6.2.7 says one to sixty-three nine nine nine,
+// zero is reserved, and above is out of line.
+static uint8_t framing_universe_is_valid( const uint8_t * packet )
+{
+	uint16_t universe = framing_universe( packet );
+	return universe >= FRAMING_UNIVERSE_MIN && universe <= FRAMING_UNIVERSE_MAX;
+}
