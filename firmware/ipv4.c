@@ -69,3 +69,10 @@ static uint8_t ipv4_carries_udp( const uint8_t * packet )
 {
 	return packet[9] == IPV4_PROTOCOL_UDP;
 }
+
+// Sum the whole header, the checksum as well,
+// all ones is the answer if nothing's a shell.
+static uint8_t ipv4_checksum_is_good( const uint8_t * packet )
+{
+	return checksum_fold( checksum_add( 0, packet, ipv4_header_length( packet ) ) ) == 0xFFFF;
+}
