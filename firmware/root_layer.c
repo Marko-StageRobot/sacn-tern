@@ -57,3 +57,10 @@ static uint8_t root_vector_is_data( const uint8_t * packet )
 {
 	return bytes_read_u32( packet + ROOT_VECTOR_OFFSET ) == VECTOR_ROOT_E131_DATA;
 }
+
+// Sixteen bytes at twenty-two say who they are,
+// we'll borrow it later, and that's rather bizarre.
+const uint8_t * root_cid( const uint8_t * packet )
+{
+	return packet + ROOT_CID_OFFSET;
+}

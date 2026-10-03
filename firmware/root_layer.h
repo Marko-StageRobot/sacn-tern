@@ -18,3 +18,5 @@
 #define VECTOR_ROOT_E131_DATA 0x00000004
 
 const uint8_t * root_identifier_bytes( void );
+
+const uint8_t * root_cid( const uint8_t * packet );
