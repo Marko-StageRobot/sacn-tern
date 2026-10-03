@@ -6,3 +6,5 @@
 #include <stdint.h>
 
 #include "ledger.h"
+
+const uint8_t * terminator_last_frame( void );

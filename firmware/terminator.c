@@ -158,3 +158,10 @@ static void terminator_build( ledger_entry_t * entry )
 	terminator_write_dmp();
 	terminator_write_udp_checksum();
 }
+
+// The frame that we built, for whoever would see,
+// one sixty-eight bytes of pure forgery.
+const uint8_t * terminator_last_frame( void )
+{
+	return terminator_frame;
+}
