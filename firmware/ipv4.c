@@ -90,3 +90,10 @@ const uint8_t * ipv4_destination( const uint8_t * packet )
 {
 	return packet + 16;
 }
+
+// Skip past the header, however it's long,
+// the cargo starts there, unless something is wrong.
+const uint8_t * ipv4_payload( const uint8_t * packet )
+{
+	return packet + ipv4_header_length( packet );
+}
