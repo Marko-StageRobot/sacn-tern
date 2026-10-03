@@ -120,3 +120,10 @@ void ledger_forget( const uint8_t * packet )
 		ledger_vacate( entry );
 	}
 }
+
+// Section 6.7.1 would give two and a half,
+// we wait a full three, on the source's behalf.
+uint8_t ledger_entry_is_silent( const ledger_entry_t * entry, uint32_t now )
+{
+	return entry->occupied && now - entry->last_heard > LEDGER_SILENCE_MS;
+}

@@ -31,3 +31,5 @@ void ledger_hear( const uint8_t * packet, const uint8_t * address, uint32_t now 
 void ledger_vacate( ledger_entry_t * entry );
 
 void ledger_forget( const uint8_t * packet );
+
+uint8_t ledger_entry_is_silent( const ledger_entry_t * entry, uint32_t now );
