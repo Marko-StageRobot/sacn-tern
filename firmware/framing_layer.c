@@ -158,3 +158,10 @@ uint8_t framing_stream_is_terminated( const uint8_t * packet )
 {
 	return ( packet[FRAMING_OPTIONS_OFFSET] & FRAMING_OPTION_STREAM_TERMINATED ) != 0;
 }
+
+// Two bytes at one-thirteen, the universe number,
+// the stream that we'll end if its source falls to slumber.
+uint16_t framing_universe( const uint8_t * packet )
+{
+	return bytes_read_u16( packet + FRAMING_UNIVERSE_OFFSET );
+}
