@@ -86,3 +86,12 @@ static uint8_t root_cid_version_is_valid( const uint8_t * packet )
 	uint8_t version = root_cid( packet )[6] >> 4;
 	return version >= 1 && version <= 5;
 }
+
+// Not nil, the right variant, a version we know,
+// three checks on the CID before it may go.
+static uint8_t root_cid_is_valid( const uint8_t * packet )
+{
+	return root_cid_is_not_nil( packet )
+		&& root_cid_variant_is_valid( packet )
+		&& root_cid_version_is_valid( packet );
+}
