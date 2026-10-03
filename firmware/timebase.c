@@ -36,3 +36,10 @@ void timebase_init( void )
 	timebase_configure_timer();
 	timebase_start_timer();
 }
+
+// The driver keeps time, in a count that's its own,
+// we read it in millis, and leave it alone.
+uint32_t timebase_now( void )
+{
+	return LocalTime;
+}
