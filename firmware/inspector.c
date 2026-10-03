@@ -29,3 +29,13 @@ static const uint8_t * inspector_open_udp( const uint8_t * packet, const uint8_t
 		ipv4_source( packet ), ipv4_destination( packet ), datagram, ipv4_payload_length( packet ) );
 	return acceptable ? udp_payload( datagram ) : 0;
 }
+
+// Section 9.3.1: the MAC, the IP, and the universe inside
+// must all tell one story, with nothing to hide.
+static uint8_t inspector_group_is_consistent( const uint8_t * frame, const uint8_t * packet, const uint8_t * sacn )
+{
+	const uint8_t * group = ipv4_destination( packet );
+	return e131_address_is_group( group )
+		&& ethernet_destination_matches_group( frame, group )
+		&& e131_group_matches_universe( group, sacn );
+}
