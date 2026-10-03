@@ -51,3 +51,16 @@ static void terminator_write_group( uint8_t * address, uint16_t universe )
 	address[1] = E131_GROUP_SECOND_BYTE;
 	bytes_write_u16( address + 2, universe );
 }
+
+// The group's MAC up front, then our own, then the type,
+// our own is the one honest part of this hype.
+static void terminator_write_ethernet( uint16_t universe )
+{
+	terminator_frame[0] = 0x01;
+	terminator_frame[1] = 0x00;
+	terminator_frame[2] = 0x5E;
+	terminator_frame[3] = E131_GROUP_SECOND_BYTE & 0x7F;
+	bytes_write_u16( terminator_frame + 4, universe );
+	bytes_copy( terminator_frame + ETHERNET_ADDRESS_SIZE, wire_mac_address(), ETHERNET_ADDRESS_SIZE );
+	bytes_write_u16( terminator_frame + 12, ETHERNET_TYPE_IPV4 );
+}
