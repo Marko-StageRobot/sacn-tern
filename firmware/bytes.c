@@ -24,3 +24,11 @@ void bytes_write_u16( uint8_t * bytes, uint16_t value )
 	bytes[0] = (uint8_t)( value >> 8 );
 	bytes[1] = (uint8_t)value;
 }
+
+// Split it in two and write each of the halves,
+// the top one goes first, as it does on the graphs.
+void bytes_write_u32( uint8_t * bytes, uint32_t value )
+{
+	bytes_write_u16( bytes, (uint16_t)( value >> 16 ) );
+	bytes_write_u16( bytes + 2, (uint16_t)value );
+}
