@@ -42,3 +42,12 @@ static uint8_t * terminator_e131( void )
 {
 	return terminator_frame + TERMINATOR_E131_OFFSET;
 }
+
+// Table 9-10: two-three-nine, two-five-five,
+// then high byte, then low, and the address is live.
+static void terminator_write_group( uint8_t * address, uint16_t universe )
+{
+	address[0] = E131_GROUP_FIRST_BYTE;
+	address[1] = E131_GROUP_SECOND_BYTE;
+	bytes_write_u16( address + 2, universe );
+}
