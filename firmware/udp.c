@@ -68,3 +68,13 @@ uint16_t udp_payload_length( const uint8_t * datagram )
 {
 	return udp_length( datagram ) - UDP_HEADER_SIZE;
 }
+
+// Room for a header, the port, and the size,
+// and then the checksum, to catch any lies.
+uint8_t udp_datagram_is_acceptable( const uint8_t * source, const uint8_t * destination, const uint8_t * datagram, uint16_t available )
+{
+	return udp_has_room_for_header( available )
+		&& udp_is_for_sacn( datagram )
+		&& udp_length_is_exact( datagram, available )
+		&& udp_checksum_is_good( source, destination, datagram );
+}

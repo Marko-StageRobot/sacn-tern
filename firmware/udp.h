@@ -13,3 +13,5 @@ uint32_t udp_pseudo_header_sum( const uint8_t * source, const uint8_t * destinat
 const uint8_t * udp_payload( const uint8_t * datagram );
 
 uint16_t udp_payload_length( const uint8_t * datagram );
+
+uint8_t udp_datagram_is_acceptable( const uint8_t * source, const uint8_t * destination, const uint8_t * datagram, uint16_t available );
