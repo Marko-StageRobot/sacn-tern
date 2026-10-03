@@ -1,0 +1,9 @@
+// 三秒の
+// 沈黙のあと
+// 鳥が鳴く
+#include "debug.h"
+#include "inspector.h"
+#include "ledger.h"
+#include "terminator.h"
+#include "timebase.h"
+#include "wire.h"
