@@ -106,3 +106,18 @@ static void terminator_write_root( const ledger_entry_t * entry )
 	bytes_write_u32( packet + ROOT_VECTOR_OFFSET, VECTOR_ROOT_E131_DATA );
 	bytes_copy( packet + ROOT_CID_OFFSET, entry->cid, ROOT_CID_SIZE );
 }
+
+// Section 6.2.6, bit six, Stream_Terminated,
+// their name and their priority, all duplicated.
+static void terminator_write_framing( ledger_entry_t * entry )
+{
+	uint8_t * packet = terminator_e131();
+	bytes_write_u16( packet + FRAMING_OFFSET, PDU_FLAGS | ( E131_SHORTEST_PACKET - FRAMING_OFFSET ) );
+	bytes_write_u32( packet + FRAMING_VECTOR_OFFSET, VECTOR_E131_DATA_PACKET );
+	bytes_copy( packet + FRAMING_SOURCE_NAME_OFFSET, entry->source_name, FRAMING_SOURCE_NAME_SIZE );
+	packet[FRAMING_PRIORITY_OFFSET] = entry->priority;
+	bytes_write_u16( packet + FRAMING_SYNC_ADDRESS_OFFSET, 0 );
+	packet[FRAMING_SEQUENCE_OFFSET] = ledger_next_sequence( entry );
+	packet[FRAMING_OPTIONS_OFFSET] = FRAMING_OPTION_STREAM_TERMINATED;
+	bytes_write_u16( packet + FRAMING_UNIVERSE_OFFSET, entry->universe );
+}
