@@ -62,3 +62,10 @@ static uint8_t dmp_count_is_in_range( const uint8_t * packet )
 	uint16_t count = dmp_property_count( packet );
 	return count >= DMP_COUNT_MIN && count <= DMP_COUNT_MAX;
 }
+
+// Section 7.7 says the values come next,
+// as many as counted, or else we are vexed.
+static uint8_t dmp_count_matches_length( const uint8_t * packet, uint16_t length )
+{
+	return dmp_property_count( packet ) == length - DMP_VALUES_OFFSET;
+}
