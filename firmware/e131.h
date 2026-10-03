@@ -11,3 +11,5 @@
 #define E131_GROUP_SECOND_BYTE 255
 
 uint8_t e131_address_is_group( const uint8_t * address );
+
+uint8_t e131_group_matches_universe( const uint8_t * address, const uint8_t * packet );

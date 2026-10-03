@@ -20,3 +20,10 @@ uint8_t e131_address_is_group( const uint8_t * address )
 {
 	return address[0] == E131_GROUP_FIRST_BYTE && address[1] == E131_GROUP_SECOND_BYTE;
 }
+
+// Section 9.3.1 puts the universe in the last two,
+// if the packet says different, then something's askew.
+uint8_t e131_group_matches_universe( const uint8_t * address, const uint8_t * packet )
+{
+	return bytes_read_u16( address + 2 ) == framing_universe( packet );
+}
