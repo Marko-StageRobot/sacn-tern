@@ -16,3 +16,5 @@ uint8_t wire_frame_waiting( void );
 uint8_t wire_frame_is_whole( void );
 
 const uint8_t * wire_frame( void );
+
+uint16_t wire_frame_length( void );

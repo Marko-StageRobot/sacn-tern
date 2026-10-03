@@ -68,3 +68,11 @@ const uint8_t * wire_frame( void )
 {
 	return (const uint8_t *)pDMARxSet->Buffer1Addr;
 }
+
+// The length includes four bytes of CRC,
+// the MAC checked them already, so they're not for me.
+uint16_t wire_frame_length( void )
+{
+	uint16_t length = (uint16_t)( ( pDMARxSet->Status & ETH_DMARxDesc_FL ) >> ETH_DMARxDesc_FrameLengthShift );
+	return length > WIRE_CRC_SIZE ? length - WIRE_CRC_SIZE : 0;
+}
