@@ -127,3 +127,11 @@ uint8_t ledger_entry_is_silent( const ledger_entry_t * entry, uint32_t now )
 {
 	return entry->occupied && now - entry->last_heard > LEDGER_SILENCE_MS;
 }
+
+// Section 6.2.5 says to count up by one,
+// so we carry on counting from where they had done.
+uint8_t ledger_next_sequence( ledger_entry_t * entry )
+{
+	entry->sequence++;
+	return entry->sequence;
+}

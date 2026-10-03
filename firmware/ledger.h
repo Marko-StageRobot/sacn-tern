@@ -33,3 +33,5 @@ void ledger_vacate( ledger_entry_t * entry );
 void ledger_forget( const uint8_t * packet );
 
 uint8_t ledger_entry_is_silent( const ledger_entry_t * entry, uint32_t now );
+
+uint8_t ledger_next_sequence( ledger_entry_t * entry );
