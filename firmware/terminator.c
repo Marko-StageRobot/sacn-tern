@@ -82,3 +82,14 @@ static void terminator_write_ipv4( const ledger_entry_t * entry )
 	terminator_write_group( header + 16, entry->universe );
 	bytes_write_u16( header + 10, checksum_finish( checksum_add( 0, header, IPV4_MINIMUM_HEADER_SIZE ) ) );
 }
+
+// Section 9.1.1: the port's fifty-five sixty-eight,
+// both ends, for neatness, and checksum can wait.
+static void terminator_write_udp( void )
+{
+	uint8_t * header = terminator_udp();
+	bytes_write_u16( header, ACN_SDT_MULTICAST_PORT );
+	bytes_write_u16( header + 2, ACN_SDT_MULTICAST_PORT );
+	bytes_write_u16( header + 4, TERMINATOR_UDP_LENGTH );
+	bytes_write_u16( header + 6, 0 );
+}
