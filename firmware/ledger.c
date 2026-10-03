@@ -12,3 +12,10 @@ ledger_entry_t * ledger_seat( uint8_t seat )
 {
 	return &ledger[seat];
 }
+
+// The same CID, the same universe too,
+// and somebody sat there, or it will not do.
+static uint8_t ledger_entry_matches( const ledger_entry_t * entry, const uint8_t * cid, uint16_t universe )
+{
+	return entry->occupied && entry->universe == universe && bytes_equal( entry->cid, cid, ROOT_CID_SIZE );
+}
