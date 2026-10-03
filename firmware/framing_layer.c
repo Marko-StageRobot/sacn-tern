@@ -76,3 +76,10 @@ static uint8_t framing_utf8_sequence_length( uint8_t lead )
 	}
 	return 0;
 }
+
+// A one and a zero on top is the sign
+// of a byte that continues, and follows the line.
+static uint8_t framing_utf8_is_continuation( uint8_t byte )
+{
+	return ( byte & 0xC0 ) == 0x80;
+}
