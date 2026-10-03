@@ -30,3 +30,10 @@ const uint8_t * wire_mac_address( void )
 {
 	return MACAddr;
 }
+
+// The driver keeps turning the filtering on,
+// so we turn it back off, and its preference is gone.
+static void wire_insist_on_everything( void )
+{
+	ETH->MACFFR |= ETH_ReceiveAll_Enable | ETH_PromiscuousMode_Enable;
+}
