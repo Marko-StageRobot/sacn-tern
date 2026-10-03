@@ -26,3 +26,10 @@ static uint16_t udp_length( const uint8_t * datagram )
 {
 	return bytes_read_u16( datagram + 4 );
 }
+
+// The length that it claims and the length IP gave
+// must be the same number, or else it's a knave.
+static uint8_t udp_length_is_exact( const uint8_t * datagram, uint16_t available )
+{
+	return udp_length( datagram ) >= UDP_HEADER_SIZE && udp_length( datagram ) == available;
+}
