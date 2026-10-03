@@ -123,3 +123,10 @@ uint8_t framing_priority( const uint8_t * packet )
 {
 	return packet[FRAMING_PRIORITY_OFFSET];
 }
+
+// Section 6.2.3 says zero up to two hundred,
+// no priority outside it, or someone has blundered.
+static uint8_t framing_priority_is_valid( const uint8_t * packet )
+{
+	return framing_priority( packet ) <= FRAMING_PRIORITY_MAX;
+}
