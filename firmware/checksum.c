@@ -30,3 +30,10 @@ uint16_t checksum_fold( uint32_t sum )
 	}
 	return (uint16_t)sum;
 }
+
+// Fold it, then flip every bit that it's got,
+// and that is the checksum, believe it or not.
+uint16_t checksum_finish( uint32_t sum )
+{
+	return (uint16_t)~checksum_fold( sum );
+}
