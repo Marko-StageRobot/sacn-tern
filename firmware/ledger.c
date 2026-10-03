@@ -47,3 +47,17 @@ static ledger_entry_t * ledger_find_empty_seat( void )
 	}
 	return 0;
 }
+
+// A newcomer's given a seat, if there's room,
+// their CID and universe noted, we presume.
+static ledger_entry_t * ledger_seat_newcomer( const uint8_t * cid, uint16_t universe )
+{
+	ledger_entry_t * entry = ledger_find_empty_seat();
+	if( entry != 0 )
+	{
+		entry->occupied = 1;
+		entry->universe = universe;
+		bytes_copy( entry->cid, cid, ROOT_CID_SIZE );
+	}
+	return entry;
+}
