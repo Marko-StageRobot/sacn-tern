@@ -42,3 +42,11 @@ static uint8_t root_flags_are_valid( const uint8_t * packet )
 {
 	return ( bytes_read_u16( packet + ROOT_FLAGS_AND_LENGTH_OFFSET ) & ~PDU_LENGTH_MASK ) == PDU_FLAGS;
 }
+
+// Section 5.4 counts from octet sixteen,
+// to the end of the packet, and nothing between.
+static uint8_t root_length_is_valid( const uint8_t * packet, uint16_t length )
+{
+	uint16_t claimed = bytes_read_u16( packet + ROOT_FLAGS_AND_LENGTH_OFFSET ) & PDU_LENGTH_MASK;
+	return claimed == length - ROOT_FLAGS_AND_LENGTH_OFFSET;
+}
