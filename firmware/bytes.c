@@ -56,3 +56,17 @@ void bytes_copy( uint8_t * to, const uint8_t * from, uint16_t count )
 		to[index] = from[index];
 	}
 }
+
+// If every last byte in the run is a nought,
+// then nothing is there, which is useful, I thought.
+uint8_t bytes_all_zero( const uint8_t * bytes, uint16_t count )
+{
+	for( uint16_t index = 0; index < count; index++ )
+	{
+		if( bytes[index] != 0 )
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
