@@ -8,3 +8,5 @@
 #include "ledger.h"
 
 const uint8_t * terminator_last_frame( void );
+
+void terminator_terminate( ledger_entry_t * entry );

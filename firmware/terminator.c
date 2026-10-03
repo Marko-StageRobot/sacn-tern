@@ -173,3 +173,13 @@ static void terminator_send_once( ledger_entry_t * entry )
 	terminator_build( entry );
 	wire_send( terminator_frame, TERMINATOR_FRAME_SIZE );
 }
+
+// Section 6.2.6: three packets shall be sent,
+// by sources, which we aren't, but that's what we meant.
+void terminator_terminate( ledger_entry_t * entry )
+{
+	for( uint8_t repeat = 0; repeat < TERMINATOR_REPEATS; repeat++ )
+	{
+		terminator_send_once( entry );
+	}
+}
