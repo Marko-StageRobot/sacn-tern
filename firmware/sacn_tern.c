@@ -56,3 +56,12 @@ static void tern_drain( void )
 		tern_take_frame();
 	}
 }
+
+// Tend to the link, hear whoever is there,
+// then end, for the silent, their streams, with due care.
+static void tern_lap( void )
+{
+	wire_tend();
+	tern_drain();
+	terminator_sweep( timebase_now() );
+}
