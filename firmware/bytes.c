@@ -46,3 +46,13 @@ uint8_t bytes_equal( const uint8_t * first, const uint8_t * second, uint16_t cou
 	}
 	return 1;
 }
+
+// From over there to here, one byte at a time,
+// we could have used memcpy, but this one is mine.
+void bytes_copy( uint8_t * to, const uint8_t * from, uint16_t count )
+{
+	for( uint16_t index = 0; index < count; index++ )
+	{
+		to[index] = from[index];
+	}
+}
