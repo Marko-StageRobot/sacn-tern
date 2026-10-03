@@ -42,3 +42,15 @@ uint32_t udp_pseudo_header_sum( const uint8_t * source, const uint8_t * destinat
 	sum = checksum_add( sum, destination, IPV4_ADDRESS_SIZE );
 	return sum + IPV4_PROTOCOL_UDP + length;
 }
+
+// A checksum of zero means none was applied,
+// if one is there, though, it must not have lied.
+static uint8_t udp_checksum_is_good( const uint8_t * source, const uint8_t * destination, const uint8_t * datagram )
+{
+	if( bytes_read_u16( datagram + 6 ) == 0 )
+	{
+		return 1;
+	}
+	uint32_t sum = udp_pseudo_header_sum( source, destination, udp_length( datagram ) );
+	return checksum_fold( checksum_add( sum, datagram, udp_length( datagram ) ) ) == 0xFFFF;
+}
