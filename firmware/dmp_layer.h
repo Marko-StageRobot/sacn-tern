@@ -18,3 +18,5 @@
 #define DMP_COUNT_MIN 0x0001
 #define DMP_COUNT_MAX 0x0201
 #define VECTOR_DMP_SET_PROPERTY 0x02
+
+uint8_t dmp_layer_is_valid( const uint8_t * packet, uint16_t length );

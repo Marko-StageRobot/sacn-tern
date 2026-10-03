@@ -69,3 +69,17 @@ static uint8_t dmp_count_matches_length( const uint8_t * packet, uint16_t length
 {
 	return dmp_property_count( packet ) == length - DMP_VALUES_OFFSET;
 }
+
+// All of section 7, the last of the three,
+// eight checks and the packet is finally free.
+uint8_t dmp_layer_is_valid( const uint8_t * packet, uint16_t length )
+{
+	return dmp_flags_are_valid( packet )
+		&& dmp_length_is_valid( packet, length )
+		&& dmp_vector_is_valid( packet )
+		&& dmp_address_type_is_valid( packet )
+		&& dmp_first_address_is_valid( packet )
+		&& dmp_increment_is_valid( packet )
+		&& dmp_count_is_in_range( packet )
+		&& dmp_count_matches_length( packet, length );
+}
