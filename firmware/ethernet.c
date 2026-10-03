@@ -31,3 +31,10 @@ static uint8_t ethernet_carries_ipv4( const uint8_t * frame )
 {
 	return bytes_read_u16( frame + 12 ) == ETHERNET_TYPE_IPV4;
 }
+
+// The lowest bit of the very first byte
+// says group when it's set, and we check that it's right.
+static uint8_t ethernet_address_is_group( const uint8_t * address )
+{
+	return address[0] & 0x01;
+}
