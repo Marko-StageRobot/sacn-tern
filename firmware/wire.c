@@ -46,3 +46,10 @@ void wire_tend( void )
 	WCHNET_RecProcess();
 	wire_insist_on_everything();
 }
+
+// When the descriptor is ours and not the DMA's,
+// a frame has come in, and it's ready for praise.
+uint8_t wire_frame_waiting( void )
+{
+	return ( pDMARxSet->Status & ETH_DMARxDesc_OWN ) == 0;
+}
