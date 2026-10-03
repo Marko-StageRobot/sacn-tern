@@ -20,3 +20,12 @@ static const uint8_t * inspector_open_ipv4( const uint8_t * packet, uint16_t ava
 {
 	return ipv4_packet_is_acceptable( packet, available ) ? ipv4_payload( packet ) : 0;
 }
+
+// One more thin layer, eight bytes and no more,
+// and then it's sACN, right down at the core.
+static const uint8_t * inspector_open_udp( const uint8_t * packet, const uint8_t * datagram )
+{
+	uint8_t acceptable = udp_datagram_is_acceptable(
+		ipv4_source( packet ), ipv4_destination( packet ), datagram, ipv4_payload_length( packet ) );
+	return acceptable ? udp_payload( datagram ) : 0;
+}
